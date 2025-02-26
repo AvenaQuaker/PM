@@ -2,19 +2,40 @@
 
 #1 Funciones con n parámetros 
 #Escribir un programa que contenga una función que reciba n parámetros de tipo numérico y calcule el producto total. 
+def Ejercicio1(*args):
+    producto = 1
+    for i in args:
+        producto *= i
+    return producto
 
-
+print(Ejercicio1(2, 3, 4, 5, 6))
 
 #2 Manejo y manipulación de elementos de una lista 
 # Escribir un programa que almacene el abecedario en una lista, elimine de la 
 # lista las letras que ocupen posiciones múltiplos de 3, y muestre por pantalla la lista resultante. 
 
+abecedario = list('abcdefghijklmnopqrstuvwxyz')
+letrasEliminadas = []
+print(abecedario)
 
+Contador = 1
+for i in abecedario:
+    if Contador % 3 == 0:
+        letrasEliminadas.append(abecedario[Contador])
+    Contador += 1
+
+for i in letrasEliminadas:
+    abecedario.remove(i)
+
+print(abecedario)
 
 #3 Entrada de datos y manipulación. 
 # Escribir un programa que permita al usuario capturar su 
 # nombre completo e imprima su nombre de manera inversa letra por letra 
-
+print("Escribe tu nombre completo")
+nombre = input()
+nombreInvertido = nombre[::-1]
+print(nombreInvertido)
 
 
 #4 Entrada de datos y estructuración. Revisar su retícula para escribir un programa que cree un 
