@@ -102,7 +102,7 @@ print("selecciona una opcion")
 print("1.- Imprimir YYYY/MM/DD")
 print("2.- Imprimir MM/DD/YYYY")
 
-opcion2 = int(input())
+opcion2 = int(input())  
 
 
 if(opcion2 == 1):
