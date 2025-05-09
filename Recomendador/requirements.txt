@@ -1,0 +1,10 @@
+DEPENDENCIAS NECESARIAS
+# Para instalar las dependencias necesarias, ejecuta el siguiente comando:
+# pip install -r requirements.txt
+
+# Dependencias necesarias para el proyecto
+Flask==2.0.1
+Flask-Cors==3.0.10
+PyMongo==3.11.4
+
+
