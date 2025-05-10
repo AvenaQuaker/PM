@@ -1,10 +1,6 @@
-from app import create_app
-from app.models.songs import obtener_canciones_populares
+from fastapi import FastAPI
+from app.routes.song_routes import router as songs_router
 
-app = create_app()
+app = FastAPI()
 
-if __name__ == "__main__":
-    canciones = obtener_canciones_populares(db = app.mongo_db)
-    print("Canciones populares:")
-    for cancion in canciones:
-        print(f"{cancion['song']} - {cancion['Popularity']}")
+app.include_router(songs_router)
