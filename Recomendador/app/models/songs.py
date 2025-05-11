@@ -35,7 +35,7 @@ class songModel:
 
     async def getByName(self, name):
         try:
-            song = await self.db.Songs.find_one({"name": name})
+            song = await self.db.Songs.find_one({"song": name})
             song["_id"] = str(song["_id"])
             return song
         except Exception as e:

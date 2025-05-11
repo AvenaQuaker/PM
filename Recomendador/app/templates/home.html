@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inicio</title>
+</head>
+<body>
+    <h1>Bienvenido a la página de canciones</h1>
+    <ul>
+        {% for song in songs %}
+            <li>{{ song.name }} por {{ song.artist }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

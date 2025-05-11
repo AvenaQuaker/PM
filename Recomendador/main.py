@@ -1,6 +1,8 @@
 from fastapi import FastAPI
-from app.routes.song_routes import router as songs_router
+from fastapi.templating import Jinja2Templates
+from app.routes.song_routes import crearRouter
 
 app = FastAPI()
 
-app.include_router(songs_router)
+templates = Jinja2Templates(directory="app/templates")
+app.include_router(crearRouter(templates))
