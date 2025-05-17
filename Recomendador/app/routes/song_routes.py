@@ -12,7 +12,7 @@ def crearRouter(templates:Jinja2Templates):
         from app.models.songs import songModel
         SM = songModel(get_db())
         songs = await SM.obtener_canciones_populares()
-        return templates.TemplateResponse("home.html",{
+        return templates.TemplateResponse("login.html",{
             "request": request,
             "songs": songs
         })
