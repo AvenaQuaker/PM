@@ -1,0 +1,52 @@
+
+  .bento {
+    margin-block: 10rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    height: 30rem;
+    gap: 1rem;
+  }
+  
+  .bento-card {
+    inline-size: 100%;
+    background: center / cover;
+    border-radius: 1rem;
+  
+    &:nth-child(1) {
+      grid-column: span 2;
+      grid-row: span 5;
+    }
+    &:nth-child(2),
+    &:nth-child(5) {
+      grid-row: span 2;
+    }
+    &:nth-child(3),
+    &:nth-child(4) {
+      grid-row: span 3;
+    }
+  }
+  
+
+  .bento-hover .bento-card {
+    transition: 500ms;
+  
+    &:hover {
+      scale: 1.01;
+    }
+  }
+  
+  .bento-hover:hover .bento-card:not(:hover) {
+    filter: saturate(50%) brightness(50%);
+  }
+  
+
+  .bento-perspective {
+    transform: perspective(1000px) rotateY(12deg) scaleX(1.372);
+    transform-origin: left;
+  }
+
+@import "tailwindcss";
+@theme {
+	--font-fredoka: "Fredoka One", sans-serif;
+	--font-montserrat: "Montserrat", sans-serif;}

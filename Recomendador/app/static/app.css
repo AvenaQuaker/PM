@@ -1,0 +1,100 @@
+@import url("https://fonts.cdnfonts.com/css/fredoka-one");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+.swiper-wrapper {
+  width: 50% !important;
+  height: 20rem !important;
+}
+
+.mySwiper2{
+	height: 15rem !important;
+}
+
+.slider {
+  border-radius: 3rem;
+  display: flex !important;
+  padding: 2rem;
+  justify-content: flex-end;
+  align-items: start;
+  flex-direction: column;
+}
+
+.slider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0px 0px 40px 40px rgba(0, 0, 0, 0.6);
+  border-radius: 3rem;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.swiperbar {
+  border-radius: 50%;
+  display: flex !important;
+  width: 10rem !important;
+  height: 10rem !important;
+  text-align: center;
+  padding: auto;
+  justify-content: flex-end;
+  align-items: start;
+  flex-direction: column;
+}
+
+.swiperbar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0px 0px 40px 40px rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+    width: 10rem !important;
+  height: 10rem !important;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.swiper-ball{
+	display: flex !important;
+	flex-direction: column;
+	align-items: center;
+	width: fit-content !important;
+	gap: 1rem;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: whitesmoke !important;
+}
+
+.swiper-scrollbar {
+  background-color: rgba(0, 0, 0, 0.24); 
+  height: 0.7rem !important;
+  border-radius: 9999px; 
+  margin-top: 10px; 
+}
+
+.swiper-scrollbar-drag {
+  background-color: #fb00ff4b !important; 
+  height: 0.7rem !important;
+  box-shadow: inset 0px 0px 2px 2px rgba(219, 117, 232, 0.521);
+}
+
+
+@media not (width >= 48rem /* 768px */) {
+  .grid-section {
+    grid-template-columns: 100%;
+    grid-template-areas:
+      "left-content"
+      "right-content";
+  }
+
+  .left-content {
+    grid-area: left-content;
+  }
+}
+
+@import "tailwindcss";
+
+@theme {
+  --font-fredoka: "Fredoka One", sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+}

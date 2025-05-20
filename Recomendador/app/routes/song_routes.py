@@ -16,11 +16,16 @@ def crearRouter(templates:Jinja2Templates):
             "request": request,
             "songs": songs
         })
-
-    @router.get("/songs/popular", tags=["Songs"])
-    async def get_popular_songs(db=Depends(get_db)):
-        controller = SongsController(db)
-        return await controller.get_popular_songs()
+    
+    @router.get("/songs/popular",response_class=HTMLResponse)
+    async def popular_songs(request: Request):
+        from app.models.songs import songModel
+        SM = songModel(get_db())
+        songs = await SM.obtener_canciones_populares()
+        return templates.TemplateResponse("app.html",{
+            "request": request,
+            "songs": songs
+        })
 
     @router.get("/songs", tags=["Songs"])
     async def get_all_songs(db=Depends(get_db)):

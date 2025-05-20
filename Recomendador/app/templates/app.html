@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App</title>
+  <link rel="stylesheet" href="../static/appOutput.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+
+<body
+  class="font-montserrat bg-[url(../static/Resources/Fondo.webp)] items-center justify-center flex min-h-[100vh] bg-no-repeat bg-cover">
+  <main
+    class="grid grid-cols-[10%_90%] w-[95%] m-5 bg-[#10153d9e] border border-[#ffffff80] h-[90%] rounded-2xl z-10 not-md:grid-cols-[15%_85%]">
+    <nav class="flex flex-col justify-between rounded-b-2xl border-r border-r-[#ffffff80] py-3 overflow-hidden">
+      <div>
+        <div class="">
+          <img class="w-2xl px-5 pt-5 pb-2 rounded-[50%] "
+            src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/37e5ccfa-f9ee-458b-afa2-dcd85b495e4e"
+            alt="user">
+          <p class="text-amber-50 text-[clamp(0.8rem,3vw,1rem)] font-medium text-center px-1.5 pb-8">Jane Wilson</p>
+        </div>
+        <ul class="outline-0">
+          <li class="nav-item">
+            <a href="#"
+              class="flex items-center justify-center text-amber-50 text-[1rem] py-3 mx-2 rounded-md active:bg-[#6a6d9b80] active:decoration-0 ">
+              <i class="fa fa-map w-10 h-5 text-[1.1rem] not-md:text-center not-md:translate-y-0.5"></i>
+              <span class="w-16 h-5 block not-md:hidden">Discover</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#"
+              class="flex items-center justify-center text-amber-50 text-[1rem] py-3 mx-2 rounded-md active:bg-[#6a6d9b80] active:decoration-0 ">
+              <i class="fa fa-arrow-trend-up w-10 h-5 text-[1.1rem] not-md:text-center not-md:translate-y-0.5"></i>
+              <span class="w-16 h-5 block not-md:hidden">Trending</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#"
+              class="flex items-center justify-center text-amber-50 text-[1rem] py-3 mx-2 rounded-md active:bg-[#6a6d9b80] active:decoration-0 ">
+              <i class="fa fa-compact-disc w-10 h-5 text-[1.1rem] not-md:text-center not-md:translate-y-0.5"></i>
+              <span class="w-16 h-5 block not-md:hidden">Album</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#"
+              class="flex items-center justify-center text-amber-50 text-[1rem] py-3 mx-2 rounded-md active:bg-[#6a6d9b80] active:decoration-0 ">
+              <i class="fa fa-circle-play w-10 h-5 text-[1.1rem] not-md:text-center not-md:translate-y-0.5"></i>
+              <span class="w-16 h-5 block not-md:hidden">Playlist</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#"
+              class="flex items-center justify-center text-amber-50 text-[1rem] py-3 mx-2 rounded-md active:bg-[#6a6d9b80] active:decoration-0 ">
+              <i class="fa fa-heart w-10 h-5 text-[1.1rem] not-md:text-center not-md:translate-y-0.5"></i>
+              <span class="w-16 h-5 block not-md:hidden">Favorites</span>
+            </a>
+          </li>
+        </ul>
+        <ul>
+          <li class="nav-item ">
+            <a href="#"
+              class="flex items-center justify-center text-amber-50 text-[1rem] py-3 mx-2 rounded-md active:bg-[#6a6d9b80] active:decoration-0 ">
+              <i class="fa fa-user nav-icon w-10 h-5 text-[1.1rem] not-md:text-center not-md:translate-y-0.5"></i>
+              <span class="nav-text w-16 h-5 block not-md:hidden">Profile</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#"
+              class="flex items-center justify-center text-amber-50 text-[1rem] py-3 mx-2 rounded-md active:bg-[#6a6d9b80] active:decoration-0 ">
+              <i class="fa fa-gear nav-icon w-10 h-5 text-[1.1rem] not-md:text-center not-md:translate-y-0.5"></i>
+              <span class="nav-text w-16 h-5 block not-md:hidden">Settings</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#"
+              class="flex items-center justify-center text-amber-50 text-[1rem] py-3 mx-2 rounded-md active:bg-[#6a6d9b80] active:decoration-0">
+              <i
+                class="fa fa-right-from-bracket nav-icon w-10 h-5 text-[1.1rem] not-md:text-center not-md:translate-y-0.5"></i>
+              <span class="nav-text w-16 h-5 block not-md:hidden">Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <section class="grid-section grid grid-cols-[75%_25%] not-lg:grid-cols-[60%_40%] not-md:grid-cols-[100%]">
+      <div class="left-content text-amber-50 py-7 px-5">
+        <h1 class="text-xl mb-5 font-fredoka">Recent Songs</h1>
+        <div class="swiper mySwiper1 w-full h-[22rem]">
+          <div class="gap-5 swiper-wrapper">
+            {% for song in songs %}
+            <div class="swiper-slide slider bg-cover bg-center bg-no-repeat"
+              style="background-image: url('{{ song.img }}')">
+              <h1 class="font-fredoka text-2xl">{{ song.name }}</h1>
+              <h3 class="font-montserrat text-xl">{{ song.artist }}</h3>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="translate-y-2 swiper-pagination"></div>
+        </div>
+        <div class="Featured">
+          <h1 class="text-xl mt-5 mb-8 font-fredoka">Featured Artists</h1>
+            <div class="swiper mySwiper2">
+              <div class="gap-5 swiper-wrapper">
+                {% for song in songs %}
+                <div class="swiper-ball swiper-slide">
+                  <div class="bg-cover bg-center bg-no-repeat swiperbar" style="background-image: url('{{ song.img }}')"></div>
+                  <h1 class="font-montserrat text-xl flex text-center">{{ song.artist }}</h1>
+                </div>
+                {% endfor %}
+              </div>
+              <div class="swiper-scrollbar"></div>
+            </div>
+        </div>
+        <div class="Genres">
+          
+        </div>
+
+      </div>
+      <div class="right-content"></div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="../static/app.js"></script>
+</body>
+
+</html>

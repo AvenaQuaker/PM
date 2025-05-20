@@ -6,7 +6,7 @@ class songModel:
 
     async def obtener_canciones_populares(self):
         try:
-            songs = await self.db.Songs.find().sort("Popularity", -1).limit(5).to_list(length=5)
+            songs = await self.db.Songs.find().sort("Popularity", -1).limit(10).to_list(length=10)
             for song in songs:
                 song["_id"] = str(song["_id"])
             return songs
