@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from app.models.songs import songModel
+from app.models.users import userModel
 
 class SongsController:
     def __init__(self, db):
@@ -34,7 +35,13 @@ class SongsController:
         return song
 
     async def get_songs_by_artist(self, artist):
-        songs = await self.song_model.getByArtist(artist)
+        songs = await self.song_model.getByArtistNames(artist)
+        if "error" in songs:
+            raise HTTPException(status_code=500, detail=songs["error"])
+        return songs
+    
+    async def get_songs_by_names(self, userSongs):
+        songs = await self.song_model.getByNames(userSongs)
         if "error" in songs:
             raise HTTPException(status_code=500, detail=songs["error"])
         return songs

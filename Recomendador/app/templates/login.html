@@ -1,62 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bienvenido</title>
   <link rel="stylesheet" href="../static/loginOutput.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
 <body class="font-montserrat h-screen w-screen overflow-hidden relative">
   <div id="back" class="absolute w-full h-full">
-    <div
-      class="backRight absolute right-0 w-1/2 h-full bg-cover bg-center"
-      style="background-image: url('https://download.unsplash.com/photo-1429041966141-44d228a42775'); background-color: #3498db"
-    ></div>
-    <div
-      class="backLeft absolute left-0 w-1/2 h-full bg-cover bg-center"
-      style="background-image: url('https://download.unsplash.com/photo-1428279148693-1cf2163ed67d'); background-color: #e74c3c"
-    ></div>
+    <div class="backRight absolute right-0 w-1/2 h-full bg-cover bg-center"
+      style="background-image: url('https://download.unsplash.com/photo-1429041966141-44d228a42775'); background-color: #3498db">
+    </div>
+    <div class="backLeft absolute left-0 w-1/2 h-full bg-cover bg-center"
+      style="background-image: url('https://download.unsplash.com/photo-1428279148693-1cf2163ed67d'); background-color: #e74c3c">
+    </div>
   </div>
 
-  <div
-    id="slideBox"
-    class="absolute h-full w-1/2 ml-1/2 shadow-[0_14px_28px_rgba(0,0,0,0.25),0_10px_10px_rgba(0,0,0,0.22)] overflow-hidden"
-  >
+  <div id="slideBox"
+    class="absolute h-full w-1/2 ml-1/2 shadow-[0_14px_28px_rgba(0,0,0,0.25),0_10px_10px_rgba(0,0,0,0.22)] overflow-hidden">
     <div class="topLayer w-[200%] h-full relative -left-full flex">
       <!-- Left -->
       <div class="left w-1/2 h-full bg-[#2C3034] relative">
         <div class="content absolute top-[30%] left-1/2 -ml-[125px] w-[250px]">
           <h2 class="font-fredoka text-[#03A9F4] font-light text-[35px] ">Sign Up</h2>
-          <form method="post" onsubmit="return false;">
+          <form method="post">
             <div class="form-group">
-              <input
-                type="text"
-                placeholder="Username"
-                class="bg-transparent border-b border-[#45494C] text-[#959595] text-sm py-2 mt-5 w-full focus:outline-none"
-              />
-              <input
-                type="text"
-                placeholder="Password"
-                class="bg-transparent border-b border-[#45494C] text-[#959595] text-sm py-2 mt-5 w-full focus:outline-none"
-              />
-              <input
-                type="text"
-                placeholder="Confirm Password"
-                class="bg-transparent border-b border-[#45494C] text-[#959595] text-sm py-2 mt-5 w-full focus:outline-none"
-              />
+              <input type="text" placeholder="Username" name="username"
+                class="bg-transparent border-b border-[#45494C] text-[#959595] text-sm py-2 mt-5 w-full focus:outline-none" />
+              <input type="text" placeholder="Password" name="password"
+                class="bg-transparent border-b border-[#45494C] text-[#959595] text-sm py-2 mt-5 w-full focus:outline-none" />
+              <input type="text" placeholder="Confirm Password" name="confirm_password"
+                class="bg-transparent border-b border-[#45494C] text-[#959595] text-sm py-2 mt-5 w-full focus:outline-none" />
             </div>
+            <button type="button" id="goLeft"
+              class="off mt-4 px-4 py-2 uppercase text-sm font-semibold text-[#03A9F4] bg-transparent hover:bg-[#363A3D] rounded shadow-none">
+              Login
+            </button>
+            <button type="button" id="register"
+              class="mt-4 px-4 py-2 uppercase text-sm font-semibold text-white bg-[#03A9F4] hover:bg-[#0288D1] rounded shadow">
+              Sign up
+            </button>
           </form>
-          <button
-            id="goLeft"
-            class="off mt-4 px-4 py-2 uppercase text-sm font-semibold text-[#03A9F4] bg-transparent hover:bg-[#363A3D] rounded shadow-none"
-          >
-            Login
-          </button>
-          <button
-            class="mt-4 px-4 py-2 uppercase text-sm font-semibold text-white bg-[#03A9F4] hover:bg-[#0288D1] rounded shadow"
-          >
-            Sign up
-          </button>
+
         </div>
       </div>
 
@@ -64,30 +52,19 @@
       <div class="right w-1/2 h-full bg-[#f9f9f9] relative">
         <div class="content absolute top-[30%] left-1/2 -ml-[125px] w-[250px]">
           <h2 class="font-fredoka text-[#03A9F4] font-light text-[35px]">Login</h2>
-          <form method="post" onsubmit="return false;">
+          <form method="post" action="/auth/login" id="loginForm">
             <div class="form-group mb-4">
-              <input
-                type="text"
-                placeholder="Username"
-                class="bg-transparent border-b border-[#959595] text-[#45494C] text-sm py-2 mt-2 w-full focus:outline-none"
-              />
-              <input
-                type="text"
-                placeholder="Password"
-                class="bg-transparent border-b border-[#959595] text-[#45494C] text-sm py-2 mt-2 w-full focus:outline-none"
-              />
+              <input type="text" placeholder="Username" name="username"
+                class="bg-transparent border-b border-[#959595] text-[#45494C] text-sm py-2 mt-2 w-full focus:outline-none" />
+              <input type="text" placeholder="Password" name="password"
+                class="bg-transparent border-b border-[#959595] text-[#45494C] text-sm py-2 mt-2 w-full focus:outline-none" />
             </div>
-            <button
-              id="goRight"
-              class="off mt-4 px-4 py-2 uppercase text-sm font-semibold text-[#03A9F4] bg-transparent hover:bg-[#eee] rounded shadow-none"
-            >
+            <button id="goRight" type="button"
+              class="off mt-4 px-4 py-2 uppercase text-sm font-semibold text-[#03A9F4] bg-transparent hover:bg-[#eee] rounded shadow-none">
               Sign Up
             </button>
-            <button
-              id="login"
-              type="submit"
-              class="mt-4 px-4 py-2 uppercase text-sm font-semibold text-white bg-[#03A9F4] hover:bg-[#0288D1] rounded shadow"
-            >
+            <button id="login" type="submit"
+              class="mt-4 px-4 py-2 uppercase text-sm font-semibold text-white bg-[#03A9F4] hover:bg-[#0288D1] rounded shadow">
               Login
             </button>
           </form>
@@ -98,4 +75,5 @@
   <script src="../static/login.js"></script>
 </body>
 </body>
+
 </html>

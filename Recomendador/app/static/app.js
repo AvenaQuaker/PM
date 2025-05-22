@@ -31,7 +31,36 @@ document.addEventListener("DOMContentLoaded", function () {
             el: '.swiper-scrollbar',
             draggable: true,
         },
-        slidesPerView: 3,
+        slidesPerView: 6,
         spaceBetween: 20,
+    });
+
+    var swiper3 = new Swiper(".mySwiper3", {
+        spaceBetween: 10,
+        slidesPerView: 3,
+        freeMode: true,
+        watchSlidesProgress: true,
+    });
+    var swiper4 = new Swiper(".mySwiper4", {
+        spaceBetween: 10,
+        thumbs: {
+            swiper: swiper3,
+        },
+    });
+
+    var swiper5 = new Swiper(".mySwiper5", {
+        effect: "cards",
+        perSlideOffset:0,
+        grabCursor: true,
+        slideShadows: true,
+        rotate:true
+    });
+
+    var swiper6 = new Swiper(".mySwiper6", {
+        effect: "cards",
+        perSlideOffset:0,
+        grabCursor: true,
+        slideShadows: true,
+        rotate:true,
     });
 });

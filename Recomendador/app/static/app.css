@@ -4,10 +4,11 @@
 .swiper-wrapper {
   width: 50% !important;
   height: 20rem !important;
+  margin: 0 !important;
 }
 
-.mySwiper2{
-	height: 15rem !important;
+.mySwiper2 {
+  height: 15rem !important;
 }
 
 .slider {
@@ -29,6 +30,23 @@
   pointer-events: none;
 }
 
+.imgThumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0px 0px 80px 80px rgba(0, 0, 0, 0.5);
+  border-radius: 1rem;
+  pointer-events: none;
+}
+.imgSlide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0px 0px 40px 40px rgba(0, 0, 0, 0.3);
+  border-radius: 1rem;
+  pointer-events: none;
+}
+
 .swiperbar {
   border-radius: 50%;
   display: flex !important;
@@ -47,18 +65,18 @@
   inset: 0;
   box-shadow: inset 0px 0px 40px 40px rgba(0, 0, 0, 0.6);
   border-radius: 50%;
-    width: 10rem !important;
+  width: 10rem !important;
   height: 10rem !important;
   z-index: 1;
   pointer-events: none;
 }
 
-.swiper-ball{
-	display: flex !important;
-	flex-direction: column;
-	align-items: center;
-	width: fit-content !important;
-	gap: 1rem;
+.swiper-ball {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content !important;
+  gap: 1rem;
 }
 
 .swiper-pagination-bullet-active {
@@ -66,18 +84,21 @@
 }
 
 .swiper-scrollbar {
-  background-color: rgba(0, 0, 0, 0.24); 
+  background-color: rgba(0, 0, 0, 0.24);
   height: 0.7rem !important;
-  border-radius: 9999px; 
-  margin-top: 10px; 
+  border-radius: 9999px;
+  margin-top: 10px;
 }
 
 .swiper-scrollbar-drag {
-  background-color: #fb00ff4b !important; 
+  background-color: #fb00ff4b !important;
   height: 0.7rem !important;
   box-shadow: inset 0px 0px 2px 2px rgba(219, 117, 232, 0.521);
 }
 
+.swiper-slide-shadow {
+  width: 60% !important;
+}
 
 @media not (width >= 48rem /* 768px */) {
   .grid-section {

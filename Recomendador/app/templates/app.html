@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>App</title>
-  <link rel="stylesheet" href="../static/appOutput.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="../static/appTailwind.css">
 </head>
 
 <body
@@ -20,7 +20,7 @@
           <img class="w-2xl px-5 pt-5 pb-2 rounded-[50%] "
             src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/37e5ccfa-f9ee-458b-afa2-dcd85b495e4e"
             alt="user">
-          <p class="text-amber-50 text-[clamp(0.8rem,3vw,1rem)] font-medium text-center px-1.5 pb-8">Jane Wilson</p>
+          <p class="text-amber-50 text-[clamp(0.8rem,3vw,1rem)] font-medium text-center px-1.5 pb-8">{{ user }}</p>
         </div>
         <ul class="outline-0">
           <li class="nav-item">
@@ -93,7 +93,11 @@
     </nav>
     <section class="grid-section grid grid-cols-[75%_25%] not-lg:grid-cols-[60%_40%] not-md:grid-cols-[100%]">
       <div class="left-content text-amber-50 py-7 px-5">
+        {% if new %}
+        <h1 class="text-xl mb-5 font-fredoka">Recomendations</h1>
+        {% else %}
         <h1 class="text-xl mb-5 font-fredoka">Recent Songs</h1>
+        {% endif %}
         <div class="swiper mySwiper1 w-full h-[22rem]">
           <div class="gap-5 swiper-wrapper">
             {% for song in songs %}
@@ -108,27 +112,78 @@
         </div>
         <div class="Featured">
           <h1 class="text-xl mt-5 mb-8 font-fredoka">Featured Artists</h1>
-            <div class="swiper mySwiper2">
-              <div class="gap-5 swiper-wrapper">
-                {% for song in songs %}
-                <div class="swiper-ball swiper-slide">
-                  <div class="bg-cover bg-center bg-no-repeat swiperbar" style="background-image: url('{{ song.img }}')"></div>
-                  <h1 class="font-montserrat text-xl flex text-center">{{ song.artist }}</h1>
+          <div class="swiper mySwiper2">
+            <div class="gap-5 swiper-wrapper">
+              {% for artist in artists %}
+              <div class="swiper-ball swiper-slide">
+                <div class="bg-cover bg-center bg-no-repeat swiperbar"
+                  style="background-image: url('{{ artist.img }}')"></div>
+                <h1 class="font-montserrat text-xl flex text-center">{{ artist.artist }}</h1>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="swiper-scrollbar"></div>
+          </div>
+        </div>
+        <div class="FavArtist">
+          <h1 class="text-xl mt-8 mb-8 font-fredoka">More of {{ MRArtist}}</h1>
+          <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper3">
+            <div thumbsSlider="" class="swiper mySwiper4 h-[30rem]!">
+              <div class=" m-0! h-[30rem]! swiper-wrapper">
+                {% for artist in artistSongs %}
+                <div class="imgThumb swiper-slide">
+                  <div class="py-10 flex justify-center items-end w-full h-full rounded-2xl bg-center bg-cover"
+                    style="background-image: url('{{ artist.img }}')">
+                    <h3 class="relative z-10 font-fredoka text-5xl text-shadow-lg">{{ artist.name}}</h3>
+                  </div>
                 </div>
                 {% endfor %}
               </div>
-              <div class="swiper-scrollbar"></div>
             </div>
+            <div class="m-0! h-[10rem]! swiper-wrapper">
+              {% for artist in artistSongs %}
+              <div class="swiper-slide">
+                <div class="imgSlide w-full h-full rounded-2xl bg-center bg-cover"
+                  style="background-image: url('{{ artist.img }}')"></div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
         </div>
-        <div class="Genres">
-          
+        <div class="Genres-Emotions w-full flex flex-row justify-center i mt-5">
+          <div class="Genres w-1/2 mb-3">
+            <h1 class="text-xl mt-8 mb-8 font-fredoka">More of Genre</h1>
+            <div class="swiper mySwiper5">
+              <div class="swiper-wrapper">
+                {% for song in songs %}
+                <div class="swiper-slide">
+                  <div class="w-[60%] h-full rounded-2xl bg-center bg-cover"
+                    style="background-image: url('{{ song.img }}')"></div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <div class="Emotions w-1/2 mb-3">
+            <h1 class="text-xl mt-8 mb-8 font-fredoka">More of Emotion</h1>
+            <div class="swiper mySwiper6">
+              <div class="swiper-wrapper">
+                {% for song in songs %}
+                <div class="swiper-slide">
+                  <div class="w-[60%] h-full rounded-2xl bg-center bg-cover"
+                    style="background-image: url('{{ song.img }}')">
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
       <div class="right-content"></div>
     </section>
   </main>
-
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="../static/app.js"></script>
 </body>

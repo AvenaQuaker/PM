@@ -51,3 +51,25 @@ class songModel:
         except Exception as e:
             print(f"Error al obtener canciones por artista: {e}")
             return {"error": str(e)}
+        
+    async def getByNames(self,userSongs):
+        try:
+            songs = await self.db.Songs.find({"name": {"$in": userSongs}}).to_list(length=None)
+            for song in songs:
+                song["_id"] = str(song["_id"])
+            return songs
+        except Exception as e:
+            print(f"Error al obtener canciones por nombre: {e}")
+            return {"error": str(e)}
+        
+    async def getByArtistNames(self,artist):
+        try:
+            songs = await self.db.Songs.find({"artist": artist}).to_list(length=None)
+            for song in songs:
+                song["_id"] = str(song["_id"])
+            if not songs:
+                return {"error": "No se encontraron canciones de este artista"}
+            return songs
+        except Exception as e:
+            print(f"Error al obtener canciones por artista: {e}")
+            return {"error": str(e)}

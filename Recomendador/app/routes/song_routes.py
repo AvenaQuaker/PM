@@ -1,8 +1,10 @@
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, Request,HTTPException
 from app.controllers.recomendations import SongsController
+from app.controllers.users import UsersController
 from data.database import get_db
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from collections import Counter
 
 def crearRouter(templates:Jinja2Templates):
     router = APIRouter()
@@ -17,17 +19,41 @@ def crearRouter(templates:Jinja2Templates):
             "songs": songs
         })
     
-    @router.get("/songs/popular",response_class=HTMLResponse)
-    async def popular_songs(request: Request):
-        from app.models.songs import songModel
-        SM = songModel(get_db())
-        songs = await SM.obtener_canciones_populares()
+    @router.get("/songs",response_class=HTMLResponse)
+    async def principal(request: Request,db=Depends(get_db)):
+        username = request.cookies.get("username")
+        if not username:
+            raise HTTPException(status_code=401, detail="No estás autenticado")
+        
+        SongController = SongsController(db)
+        UserController = UsersController(db)
+        featuredSongs = await SongController.get_popular_songs()
+        user = await UserController.getUserByName(username)
+        userSongs = user.get("LastListened", [])
+        newAccount = False
+
+        if userSongs != []:
+            songs = await SongController.get_songs_by_names(userSongs)
+        else:
+            songs = featuredSongs
+            newAccount = True
+
+        artistNames = [song["artist"] for song in songs]
+        contador = Counter(artistNames)
+        artistaMasRepetido = contador.most_common(1)[0][0]
+        artistaSongs = await SongController.get_songs_by_artist(artistaMasRepetido)
+
         return templates.TemplateResponse("app.html",{
             "request": request,
-            "songs": songs
+            "songs": songs,
+            "artists":featuredSongs,
+            "MRArtist": artistaMasRepetido,
+            "artistSongs": artistaSongs,
+            "user": username,
+            "new": newAccount
         })
 
-    @router.get("/songs", tags=["Songs"])
+    @router.get("/songs1", tags=["Songs"])
     async def get_all_songs(db=Depends(get_db)):
         controller = SongsController(db)
         return await controller.get_all_songs()

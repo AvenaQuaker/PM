@@ -5,6 +5,7 @@
 .swiper-wrapper {
   width: 50% !important;
   height: 20rem !important;
+  margin: 0 !important;
 }
 .mySwiper2 {
   height: 15rem !important;
@@ -24,6 +25,22 @@
   box-shadow: inset 0px 0px 40px 40px rgba(0, 0, 0, 0.6);
   border-radius: 3rem;
   z-index: -1;
+  pointer-events: none;
+}
+.imgThumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0px 0px 80px 80px rgba(0, 0, 0, 0.5);
+  border-radius: 1rem;
+  pointer-events: none;
+}
+.imgSlide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0px 0px 40px 40px rgba(0, 0, 0, 0.3);
+  border-radius: 1rem;
   pointer-events: none;
 }
 .swiperbar {
@@ -69,6 +86,9 @@
   height: 0.7rem !important;
   box-shadow: inset 0px 0px 2px 2px rgba(219, 117, 232, 0.521);
 }
+.swiper-slide-shadow {
+  width: 60% !important;
+}
 @media not (width >= 48rem ) {
   .grid-section {
     grid-template-columns: 100%;
@@ -97,6 +117,8 @@
     --text-xl--line-height: calc(1.75 / 1.25);
     --text-2xl: 1.5rem;
     --text-2xl--line-height: calc(2 / 1.5);
+    --text-5xl: 3rem;
+    --text-5xl--line-height: 1;
     --font-weight-light: 300;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
@@ -278,11 +300,20 @@
   .left-0 {
     left: calc(var(--spacing) * 0);
   }
+  .left-1 {
+    left: calc(var(--spacing) * 1);
+  }
   .left-1\/2 {
     left: calc(1/2 * 100%);
   }
   .z-10 {
     z-index: 10;
+  }
+  .m-0 {
+    margin: calc(var(--spacing) * 0);
+  }
+  .m-0\! {
+    margin: calc(var(--spacing) * 0) !important;
   }
   .m-5 {
     margin: calc(var(--spacing) * 5);
@@ -301,6 +332,12 @@
   }
   .mt-5 {
     margin-top: calc(var(--spacing) * 5);
+  }
+  .mt-8 {
+    margin-top: calc(var(--spacing) * 8);
+  }
+  .mb-3 {
+    margin-bottom: calc(var(--spacing) * 3);
   }
   .mb-4 {
     margin-bottom: calc(var(--spacing) * 4);
@@ -323,11 +360,20 @@
   .grid {
     display: grid;
   }
+  .table {
+    display: table;
+  }
   .h-5 {
     height: calc(var(--spacing) * 5);
   }
+  .h-\[10rem\]\! {
+    height: 10rem !important;
+  }
   .h-\[22rem\] {
     height: 22rem;
+  }
+  .h-\[30rem\]\! {
+    height: 30rem !important;
   }
   .h-\[90\%\] {
     height: 90%;
@@ -341,8 +387,17 @@
   .min-h-\[100vh\] {
     min-height: 100vh;
   }
+  .w-1 {
+    width: calc(var(--spacing) * 1);
+  }
   .w-1\/2 {
     width: calc(1/2 * 100%);
+  }
+  .w-2 {
+    width: calc(var(--spacing) * 2);
+  }
+  .w-2\/3 {
+    width: calc(2/3 * 100%);
   }
   .w-2xl {
     width: var(--container-2xl);
@@ -352,6 +407,9 @@
   }
   .w-16 {
     width: calc(var(--spacing) * 16);
+  }
+  .w-\[60\%\] {
+    width: 60%;
   }
   .w-\[95\%\] {
     width: 95%;
@@ -371,9 +429,15 @@
   .max-w-screen-xl {
     max-width: var(--breakpoint-xl);
   }
+  .border-collapse {
+    border-collapse: collapse;
+  }
   .translate-y-2 {
     --tw-translate-y: calc(var(--spacing) * 2);
     translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .resize {
+    resize: both;
   }
   .grid-cols-\[10\%_90\%\] {
     grid-template-columns: 10% 90%;
@@ -384,8 +448,14 @@
   .flex-col {
     flex-direction: column;
   }
+  .flex-row {
+    flex-direction: row;
+  }
   .items-center {
     align-items: center;
+  }
+  .items-end {
+    align-items: flex-end;
   }
   .justify-between {
     justify-content: space-between;
@@ -469,6 +539,9 @@
   .bg-no-repeat {
     background-repeat: no-repeat;
   }
+  .px-1 {
+    padding-inline: calc(var(--spacing) * 1);
+  }
   .px-1\.5 {
     padding-inline: calc(var(--spacing) * 1.5);
   }
@@ -486,6 +559,9 @@
   }
   .py-7 {
     padding-block: calc(var(--spacing) * 7);
+  }
+  .py-10 {
+    padding-block: calc(var(--spacing) * 10);
   }
   .pt-5 {
     padding-top: calc(var(--spacing) * 5);
@@ -508,6 +584,10 @@
   .text-2xl {
     font-size: var(--text-2xl);
     line-height: var(--tw-leading, var(--text-2xl--line-height));
+  }
+  .text-5xl {
+    font-size: var(--text-5xl);
+    line-height: var(--tw-leading, var(--text-5xl--line-height));
   }
   .text-sm {
     font-size: var(--text-sm);
@@ -559,6 +639,9 @@
   .uppercase {
     text-transform: uppercase;
   }
+  .underline {
+    text-decoration-line: underline;
+  }
   .shadow {
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
@@ -571,6 +654,10 @@
     --tw-shadow: 0 0 #0000;
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+  .outline {
+    outline-style: var(--tw-outline-style);
+    outline-width: 1px;
+  }
   .outline-0 {
     outline-style: var(--tw-outline-style);
     outline-width: 0px;
@@ -579,6 +666,9 @@
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, visibility, content-visibility, overlay, pointer-events;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .text-shadow-lg {
+    text-shadow: 0px 1px 2px var(--tw-text-shadow-color, rgb(0 0 0 / 0.1)), 0px 3px 2px var(--tw-text-shadow-color, rgb(0 0 0 / 0.1)), 0px 4px 8px var(--tw-text-shadow-color, rgb(0 0 0 / 0.1));
   }
   .not-md\:hidden {
     @media not (width >= 48rem) {
@@ -743,6 +833,15 @@
   inherits: false;
   initial-value: solid;
 }
+@property --tw-text-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-text-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
@@ -766,6 +865,8 @@
       --tw-ring-offset-color: #fff;
       --tw-ring-offset-shadow: 0 0 #0000;
       --tw-outline-style: solid;
+      --tw-text-shadow-color: initial;
+      --tw-text-shadow-alpha: 100%;
     }
   }
 }

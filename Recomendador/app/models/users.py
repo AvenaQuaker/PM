@@ -9,6 +9,7 @@ class userModel:
             user = await self.db.Users.find_one({"username": username, "password": password})
             if user:
                 user["_id"] = str(user["_id"])
+                print(f"Usuario encontrado: {user}")
                 return user
             else:
                 return None
@@ -24,7 +25,8 @@ class userModel:
             else:
                 new_user = {
                     "username": username,
-                    "password": password
+                    "password": password,
+                    "LastListened": [],
                 }
                 result = await self.db.Users.insert_one(new_user)
                 new_user["_id"] = str(result.inserted_id)
@@ -33,4 +35,14 @@ class userModel:
             print(f"Error al registrar usuario: {e}")
             return {"error": str(e)}
     
-    
+    async def getUserByName(self, username):
+        try:
+            user = await self.db.Users.find_one({"username": username})
+            if user:
+                user["_id"] = str(user["_id"])
+                return user
+            else:
+                return None
+        except Exception as e:
+            print(f"Error al obtener usuario: {e}")
+            return {"error": str(e)}
