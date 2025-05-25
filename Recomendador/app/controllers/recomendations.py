@@ -45,3 +45,15 @@ class SongsController:
         if "error" in songs:
             raise HTTPException(status_code=500, detail=songs["error"])
         return songs
+    
+    async def get_songs_by_genre(self, genre):
+        songs = await self.song_model.getByGenre(genre)
+        if "error" in songs:
+            raise HTTPException(status_code=500, detail=songs["error"])
+        return songs
+    
+    async def get_songs_by_emotion(self, emotion):
+        songs = await self.song_model.getByEmotion(emotion)
+        if "error" in songs:
+            raise HTTPException(status_code=500, detail=songs["error"])
+        return songs

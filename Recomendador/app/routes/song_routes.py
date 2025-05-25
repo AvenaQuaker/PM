@@ -39,9 +39,18 @@ def crearRouter(templates:Jinja2Templates):
             newAccount = True
 
         artistNames = [song["artist"] for song in songs]
-        contador = Counter(artistNames)
-        artistaMasRepetido = contador.most_common(1)[0][0]
+        genresNames = [song["genre"] for song in songs]
+        print(songs)
+        emotionNames = [song["emotion"] for song in songs]
+        contadorArtista = Counter(artistNames)
+        contadorGeneros = Counter(genresNames)
+        contadorEmociones = Counter(emotionNames)
+        artistaMasRepetido = contadorArtista.most_common(1)[0][0]
+        generoMasRepetido = contadorGeneros.most_common(1)[0][0]
+        emocionMasRepetida = contadorEmociones.most_common(1)[0][0]
         artistaSongs = await SongController.get_songs_by_artist(artistaMasRepetido)
+        genresSongs = await SongController.get_songs_by_genre(generoMasRepetido)
+        emotionSongs = await SongController.get_songs_by_emotion(emocionMasRepetida)    
 
         return templates.TemplateResponse("app.html",{
             "request": request,
@@ -50,6 +59,10 @@ def crearRouter(templates:Jinja2Templates):
             "MRArtist": artistaMasRepetido,
             "artistSongs": artistaSongs,
             "user": username,
+            "MRGenre": generoMasRepetido,
+            "genreSongs": genresSongs,
+            "MREmotion": emocionMasRepetida,
+            "emotionSongs": emotionSongs,
             "new": newAccount
         })
 

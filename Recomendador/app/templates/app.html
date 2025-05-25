@@ -7,7 +7,7 @@
   <title>App</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="../static/appTailwind.css">
+  <link rel="stylesheet" href="../static/appTW.css">
 </head>
 
 <body
@@ -152,24 +152,24 @@
         </div>
         <div class="Genres-Emotions w-full flex flex-row justify-center i mt-5">
           <div class="Genres w-1/2 mb-3">
-            <h1 class="text-xl mt-8 mb-8 font-fredoka">More of Genre</h1>
+            <h1 class="text-xl mt-8 mb-8 font-fredoka">For {{ MRGenre }} Enyojers!</h1>
             <div class="swiper mySwiper5">
               <div class="swiper-wrapper">
-                {% for song in songs %}
-                <div class="swiper-slide">
+                {% for song in genreSongs %}
+                <div class="GESlider swiper-slide">
                   <div class="w-[60%] h-full rounded-2xl bg-center bg-cover"
                     style="background-image: url('{{ song.img }}')"></div>
-                  </div>
+                </div>
                 {% endfor %}
               </div>
             </div>
           </div>
           <div class="Emotions w-1/2 mb-3">
-            <h1 class="text-xl mt-8 mb-8 font-fredoka">More of Emotion</h1>
+            <h1 class="text-xl mt-8 mb-8 font-fredoka">Feeling {{ MREmotion }}!</h1>
             <div class="swiper mySwiper6">
               <div class="swiper-wrapper">
-                {% for song in songs %}
-                <div class="swiper-slide">
+                {% for song in emotionSongs %}
+                <div class="GESlider swiper-slide">
                   <div class="w-[60%] h-full rounded-2xl bg-center bg-cover"
                     style="background-image: url('{{ song.img }}')">
                   </div>
@@ -181,7 +181,27 @@
         </div>
 
       </div>
-      <div class="right-content"></div>
+      <div class="right-content border-l text-amber-50 py-7 px-5 border-l-[#ffffff80]">
+        <h1 class="text-2xl mb-5 font-fredoka">Your Playlist</h1>
+        <div class="rounded-xl mb-5 bg-[#1b074b9d] p-3 h-12 overflow-y-auto flex flex-row justify-center items-center">
+          <i class="fa fa-search"></i>
+          <input type="text" class=" text-amber-50 w-full h-full rounded-xl px-2 outline-none"
+            placeholder="Search your playlist">
+        </div>
+        <div class="flex flex-col justify-center items-center">
+            {% for song in songs %}
+            <div class="flex flex-row justify-between items-center w-full h-fit mb-5 bg-[#1b074b9d] rounded-xl p-3">
+              <div class="flex flex-row justify-start items-center">
+                <img class="w-12 h-12 rounded-xl" src="{{ song.img }}" alt="song">
+                <div class=" flex flex-col justify-start items-start ml-3">
+                  <h1 class=" font-fredoka text-[1] text-lg">{{ song.name }}</h1>
+                  <h3 class=" font-montserrat text-sm">{{ song.artist }}</h3>
+                </div>
+              </div>
+              <i class="fa fa-play mx-2 h-5 not-md:text-center not-md:translate-y-0.5"></i>
+            </div>
+            {% endfor %}
+        </div>
     </section>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

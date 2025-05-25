@@ -73,3 +73,29 @@ class songModel:
         except Exception as e:
             print(f"Error al obtener canciones por artista: {e}")
             return {"error": str(e)}
+    
+    async def getByGenre(self, genre):
+        try:
+            songs = await self.db.Songs.aggregate([{"$match": {"genre": genre}},{"$sample": {"size": 5}}]).to_list(length=5)
+            for song in songs:
+                song["_id"] = str(song["_id"])
+            if not songs:
+                return {"error": "No se encontraron canciones de este género"}
+            return songs
+        except Exception as e:
+            print(f"Error al obtener canciones por género: {e}")
+            return {"error": str(e)}
+    
+    async def getByEmotion(self, emotion):
+        try:
+            songs = await self.db.Songs.aggregate([{"$match": {"emotion": emotion}},{"$sample": {"size": 5}}]).to_list(length=5)
+            for song in songs:
+                song["_id"] = str(song["_id"])
+            if not songs:
+                return {"error": "No se encontraron canciones de esta emoción"}
+            return songs
+        except Exception as e:
+            print(f"Error al obtener canciones por emoción: {e}")
+            return {"error": str(e)}
+        
+    
