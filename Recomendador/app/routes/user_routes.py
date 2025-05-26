@@ -46,4 +46,18 @@ def userRouter():
             return JSONResponse(status_code=404, content={"message": "Usuario no encontrado"})
         return user
 
+    @router.post("/user/addsong")
+    async def add_song_to_user(request: Request, db=Depends(get_db)):
+        data = await request.json()
+        username = data.get("username")
+        song_name = data.get("song_name")
+
+        controller = UsersController(db)
+        result = await controller.addSongToUser(username, song_name)
+
+        if "error" in result:
+            return JSONResponse(status_code=500, content={"message": result["error"]})
+        
+        return {"message": "Canción añadida correctamente"}
+    
     return router

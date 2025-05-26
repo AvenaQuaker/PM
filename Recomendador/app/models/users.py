@@ -46,3 +46,25 @@ class userModel:
         except Exception as e:
             print(f"Error al obtener usuario: {e}")
             return {"error": str(e)}
+        
+    async def addSongToUser(self, username, song_name):
+        try:
+            user = await self.db.Users.find_one({"username": username})
+            if not user:
+                return {"error": "Usuario no encontrado"}
+            if "LastListened" not in user:
+                user["LastListened"] = []
+            if song_name not in user["LastListened"]:
+                if len(user["LastListened"]) >= 10:
+                    user["LastListened"].pop(0)
+                    
+                user["LastListened"].append(song_name)
+                await self.db.Users.update_one({"username": username}, {"$set": {"LastListened": user["LastListened"]}})
+                return {"message": "Canción añadida correctamente"}
+            else:
+                return {"message": "La canción ya está en la lista de escuchadas"}
+        except Exception as e:
+            print(f"Error al añadir canción al usuario: {e}")
+            return {"error": str(e)}
+        
+

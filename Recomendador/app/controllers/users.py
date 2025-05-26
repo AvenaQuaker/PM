@@ -17,4 +17,9 @@ class UsersController:
         user = await self.user_model.getUserByName(username)
         print(user)
         return user
-
+    
+    async def addSongToUser(self, username, song_name):
+        result = await self.user_model.addSongToUser(username, song_name)
+        if "error" in result:
+            raise HTTPException(status_code=500, detail=result["error"])
+        return result

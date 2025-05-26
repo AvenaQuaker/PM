@@ -40,7 +40,6 @@ def crearRouter(templates:Jinja2Templates):
 
         artistNames = [song["artist"] for song in songs]
         genresNames = [song["genre"] for song in songs]
-        print(songs)
         emotionNames = [song["emotion"] for song in songs]
         contadorArtista = Counter(artistNames)
         contadorGeneros = Counter(genresNames)
@@ -66,24 +65,75 @@ def crearRouter(templates:Jinja2Templates):
             "new": newAccount
         })
 
-    @router.get("/songs1", tags=["Songs"])
-    async def get_all_songs(db=Depends(get_db)):
-        controller = SongsController(db)
-        return await controller.get_all_songs()
-
     @router.get("/songs/{song_id}", tags=["Songs"])
     async def get_song_by_id(song_id: str, db=Depends(get_db)):
         controller = SongsController(db)
         return await controller.get_song_by_id(song_id)
 
     @router.get("/songs/name/{name}", tags=["Songs"])
-    async def get_song_by_name(name: str, db=Depends(get_db)):
+    async def get_song_by_name(name, db=Depends(get_db)):
         controller = SongsController(db)
+        if not name:
+            raise HTTPException(status_code=400, detail="Name parameter is required")
         return await controller.get_song_by_name(name)
+    
+    @router.get("/songs/search/{name}", tags=["Songs"])
+    async def search_songs(name: str, db=Depends(get_db)):
+        controller = SongsController(db)
+        if not name:
+            raise HTTPException(status_code=400, detail="Search parameter is required")
+        search = name.split()
+        return await controller.get_song_by_name(search)
 
     @router.get("/songs/artist/{artist}", tags=["Songs"])
     async def get_songs_by_artist(artist: str, db=Depends(get_db)):
         controller = SongsController(db)
         return await controller.get_songs_by_artist(artist)
+    
+    @router.get("/songs/refresh/{user}", tags=["Songs"])
+    async def refresh(user, db=Depends(get_db)):
+        username = user
+        print(f"Username: {username}")
+        if not username:
+            raise HTTPException(status_code=401, detail="No estás autenticado")
+        
+        SongController = SongsController(db)
+        UserController = UsersController(db)
+        featuredSongs = await SongController.get_popular_songs()
+        user = await UserController.getUserByName(username)
+        userSongs = user.get("LastListened", [])
+        newAccount = False
+
+        if userSongs != []:
+            songs = await SongController.get_songs_by_names(userSongs)
+        else:
+            songs = featuredSongs
+            newAccount = True
+
+        artistNames = [song["artist"] for song in songs]
+        genresNames = [song["genre"] for song in songs]
+        emotionNames = [song["emotion"] for song in songs]
+        contadorArtista = Counter(artistNames)
+        contadorGeneros = Counter(genresNames)
+        contadorEmociones = Counter(emotionNames)
+        artistaMasRepetido = contadorArtista.most_common(1)[0][0]
+        generoMasRepetido = contadorGeneros.most_common(1)[0][0]
+        emocionMasRepetida = contadorEmociones.most_common(1)[0][0]
+        artistaSongs = await SongController.get_songs_by_artist(artistaMasRepetido)
+        genresSongs = await SongController.get_songs_by_genre(generoMasRepetido)
+        emotionSongs = await SongController.get_songs_by_emotion(emocionMasRepetida)    
+
+        return {
+            "songs": songs,
+            "artists": featuredSongs,
+            "MRArtist": artistaMasRepetido,
+            "artistSongs": artistaSongs,
+            "user": username,
+            "MRGenre": generoMasRepetido,
+            "genreSongs": genresSongs,
+            "MREmotion": emocionMasRepetida,
+            "emotionSongs": emotionSongs,
+            "new": newAccount
+        }
     
     return router

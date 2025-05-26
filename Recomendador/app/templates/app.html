@@ -7,7 +7,7 @@
   <title>App</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <link rel="stylesheet" href="../static/appTW.css">
+  <link rel="stylesheet" href="../static/appTailwind.css">
 </head>
 
 <body
@@ -20,7 +20,7 @@
           <img class="w-2xl px-5 pt-5 pb-2 rounded-[50%] "
             src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/37e5ccfa-f9ee-458b-afa2-dcd85b495e4e"
             alt="user">
-          <p class="text-amber-50 text-[clamp(0.8rem,3vw,1rem)] font-medium text-center px-1.5 pb-8">{{ user }}</p>
+          <p id="user" class="text-amber-50 text-[clamp(0.8rem,3vw,1rem)] font-medium text-center px-1.5 pb-8">{{ user }}</p>
         </div>
         <ul class="outline-0">
           <li class="nav-item">
@@ -101,10 +101,10 @@
         <div class="swiper mySwiper1 w-full h-[22rem]">
           <div class="gap-5 swiper-wrapper">
             {% for song in songs %}
-            <div class="swiper-slide slider bg-cover bg-center bg-no-repeat"
+            <div onclick="playSong(event)" data-name="{{song.name}}" class="swiper-slide slider bg-cover bg-center bg-no-repeat"
               style="background-image: url('{{ song.img }}')">
-              <h1 class="font-fredoka text-2xl">{{ song.name }}</h1>
-              <h3 class="font-montserrat text-xl">{{ song.artist }}</h3>
+              <h1 class="pointer-events-none font-fredoka text-2xl">{{ song.name }}</h1>
+              <h3 class="pointer-events-none font-montserrat text-xl">{{ song.artist }}</h3>
             </div>
             {% endfor %}
           </div>
@@ -115,10 +115,10 @@
           <div class="swiper mySwiper2">
             <div class="gap-5 swiper-wrapper">
               {% for artist in artists %}
-              <div class="swiper-ball swiper-slide">
-                <div class="bg-cover bg-center bg-no-repeat swiperbar"
+              <div onclick="playSong(event)" data-name="{{ artist.artist }}" class="swiper-ball swiper-slide">
+                <div class="pointer-events-none! bg-cover bg-center bg-no-repeat swiperbar border border-slate-300"
                   style="background-image: url('{{ artist.img }}')"></div>
-                <h1 class="font-montserrat text-xl flex text-center">{{ artist.artist }}</h1>
+                <h1 class="pointer-events-none! font-montserrat text-xl flex text-center">{{ artist.artist }}</h1>
               </div>
               {% endfor %}
             </div>
@@ -126,21 +126,21 @@
           </div>
         </div>
         <div class="FavArtist">
-          <h1 class="text-xl mt-8 mb-8 font-fredoka">More of {{ MRArtist}}</h1>
+          <h1 id="FVA"class="text-xl mt-8 mb-8 font-fredoka">More of {{ MRArtist}}</h1>
           <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper3">
             <div thumbsSlider="" class="swiper mySwiper4 h-[30rem]!">
               <div class=" m-0! h-[30rem]! swiper-wrapper">
                 {% for artist in artistSongs %}
                 <div class="imgThumb swiper-slide">
-                  <div class="py-10 flex justify-center items-end w-full h-full rounded-2xl bg-center bg-cover"
+                  <div onclick="playSong(event)" data-name="{{artist.name}}" class="py-10 flex justify-center items-end w-full h-full rounded-2xl bg-center bg-cover"
                     style="background-image: url('{{ artist.img }}')">
-                    <h3 class="relative z-10 font-fredoka text-5xl text-shadow-lg">{{ artist.name}}</h3>
+                    <h3 class="pointer-events-none relative z-10 font-fredoka text-5xl text-shadow-lg">{{ artist.name}}</h3>
                   </div>
                 </div>
                 {% endfor %}
               </div>
             </div>
-            <div class="m-0! h-[10rem]! swiper-wrapper">
+            <div id="thumbSlider" class="m-0! h-[10rem]! swiper-wrapper">
               {% for artist in artistSongs %}
               <div class="swiper-slide">
                 <div class="imgSlide w-full h-full rounded-2xl bg-center bg-cover"
@@ -152,12 +152,12 @@
         </div>
         <div class="Genres-Emotions w-full flex flex-row justify-center i mt-5">
           <div class="Genres w-1/2 mb-3">
-            <h1 class="text-xl mt-8 mb-8 font-fredoka">For {{ MRGenre }} Enyojers!</h1>
+            <h1 id="FVG" class="text-xl mt-8 mb-8 font-fredoka">For {{ MRGenre }} Enyojers!</h1>
             <div class="swiper mySwiper5">
               <div class="swiper-wrapper">
                 {% for song in genreSongs %}
                 <div class="GESlider swiper-slide">
-                  <div class="w-[60%] h-full rounded-2xl bg-center bg-cover"
+                  <div onclick="playSong(event)" data-name="{{song.name}}" class="w-[60%] h-full rounded-2xl bg-center bg-cover"
                     style="background-image: url('{{ song.img }}')"></div>
                 </div>
                 {% endfor %}
@@ -165,12 +165,12 @@
             </div>
           </div>
           <div class="Emotions w-1/2 mb-3">
-            <h1 class="text-xl mt-8 mb-8 font-fredoka">Feeling {{ MREmotion }}!</h1>
+            <h1 id="FVE" class="text-xl mt-8 mb-8 font-fredoka">Feeling {{ MREmotion }}!</h1>
             <div class="swiper mySwiper6">
               <div class="swiper-wrapper">
                 {% for song in emotionSongs %}
                 <div class="GESlider swiper-slide">
-                  <div class="w-[60%] h-full rounded-2xl bg-center bg-cover"
+                  <div onclick="playSong(event)" data-name="{{song.name}}" class="w-[60%] h-full rounded-2xl bg-center bg-cover"
                     style="background-image: url('{{ song.img }}')">
                   </div>
                 </div>
@@ -185,22 +185,35 @@
         <h1 class="text-2xl mb-5 font-fredoka">Your Playlist</h1>
         <div class="rounded-xl mb-5 bg-[#1b074b9d] p-3 h-12 overflow-y-auto flex flex-row justify-center items-center">
           <i class="fa fa-search"></i>
-          <input type="text" class=" text-amber-50 w-full h-full rounded-xl px-2 outline-none"
+          <input id="searchInput" type="text" class=" text-amber-50 w-full h-full rounded-xl px-2 outline-none"
             placeholder="Search your playlist">
         </div>
-        <div class="flex flex-col justify-center items-center">
-            {% for song in songs %}
-            <div class="flex flex-row justify-between items-center w-full h-fit mb-5 bg-[#1b074b9d] rounded-xl p-3">
-              <div class="flex flex-row justify-start items-center">
-                <img class="w-12 h-12 rounded-xl" src="{{ song.img }}" alt="song">
-                <div class=" flex flex-col justify-start items-start ml-3">
-                  <h1 class=" font-fredoka text-[1] text-lg">{{ song.name }}</h1>
-                  <h3 class=" font-montserrat text-sm">{{ song.artist }}</h3>
-                </div>
+        <div id="searchSongs" class="flex flex-col justify-center items-center">
+          {% for song in songs %}
+          <div onclick="playSong(event)" data-name="{{song.name}}"
+            class="border border-slate-300 flex flex-row justify-between items-center w-full h-fit mb-5 bg-[#1b074b6e] rounded-xl p-3">
+            <div class="pointer-events-none flex flex-row justify-start items-center">
+              <img class="pointer-events-none w-12 h-12 rounded-xl" src="{{ song.img }}" alt="song">
+              <div class="pointer-events-none flex flex-col justify-start items-start ml-3">
+                <h1 class="pointer-events-none font-fredoka text-[1] text-lg">{{ song.name }}</h1>
+                <h3 class="pointer-events-none font-montserrat text-sm">{{ song.artist }}</h3>
               </div>
-              <i class="fa fa-play mx-2 h-5 not-md:text-center not-md:translate-y-0.5"></i>
             </div>
-            {% endfor %}
+            <i class="pointer-events-none fa fa-play mx-2 h-5 not-md:text-center not-md:translate-y-0.5"></i>
+          </div>
+          {% endfor %}
+        </div>
+        <div id="gpCancion"
+          class="border border-slate-300 w-full h-fit bg-[#1b074bad] rounded-3xl flex flex-col justify-center items-center py-4">
+          <div id="imgCancion" class="animate-spin bg-cover bg-center bg-no-repeat w-36 h-36 rounded-full mb-5"
+            style="background-image: url(https://live-production.wcms.abc-cdn.net.au/a362273509f7eccdcf362bb73b3b006d?impolicy=wcms_crop_resize&cropH=788&cropW=1400&xPos=0&yPos=0&width=862&height=485);">
+          </div>
+          <h1 class="text-center text-xl text-white mb-1 font-fredoka">Cancion</h1>
+          <h1 class="text-center text-white font-montserrat mb-5">Artista</h1>
+          <div id="btnPlay" class="flex flex-row justify-center items-center p-4 rounded-full bg-green-600">
+            <i id="iconPlay" class=" 
+          fa fa-play bg-cover bg-center bg-no-repeat rounded-full"></i>
+          </div>
         </div>
     </section>
   </main>

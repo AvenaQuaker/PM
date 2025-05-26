@@ -81,6 +81,7 @@
   border-radius: 1rem;
   z-index: 1;
   pointer-events: none ;
+
 }
 
 .swiper-ball {
@@ -125,7 +126,7 @@
   }
 }
 
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --font-fredoka: "Fredoka One", sans-serif;

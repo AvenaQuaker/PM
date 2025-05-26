@@ -1,4 +1,5 @@
 from bson import ObjectId
+import re
 
 class songModel:
     def __init__(self, db):
@@ -35,13 +36,29 @@ class songModel:
 
     async def getByName(self, name):
         try:
-            song = await self.db.Songs.find_one({"song": name})
-            song["_id"] = str(song["_id"])
-            return song
-        except Exception as e:
-            print(f"Error al obtener canción por nombre: {e}")
-            return {"error": str(e)}
+            if isinstance(name, list):  
+                regex_filters = [{"name": {"$regex": re.escape(kw), "$options": "i"}} for kw in name]
+                regex_filters += [{"artist": {"$regex": re.escape(kw), "$options": "i"}} for kw in name]
 
+                query = {"$or": regex_filters}
+                result = await self.db.Songs.find(query).to_list(length=None)
+                for song in result:
+                    song["_id"] = str(song["_id"])
+                return result if result else None
+            elif isinstance(name, str):  
+                song = await self.db.Songs.find_one({"name": name})
+                if song:
+                    song["_id"] = str(song["_id"])
+                    return song
+                else:
+                    return None
+            else:
+                return {"error": "Tipo de dato no válido"}
+    
+        except Exception as e:
+            print(f"Error al obtener canción(es) por nombre: {e}")
+            return {"error": str(e)}
+        
     async def getByArtist(self, artist):
         try:
             songs = await self.db.Songs.find({"artist": artist}).to_list(length=None)

@@ -1,23 +1,31 @@
 import random
 from pymongo import MongoClient
 
+# Lista de géneros populares
+emotions = [
+    "joy",
+    "love",
+    "anger",
+    "fear",
+    "surprise",
+    "sadness"
+]
 # Conexión a MongoDB
 client = MongoClient("mongodb+srv://Jaime:sonic123%40@clustermongo.ial5c.mongodb.net/")
 db = client["Spotify"]
 collection = db["Songs"]
 
-# Obtener todos los documentos
-documents = collection.find()
+# Buscar solo los documentos que no tienen el campo "genre"
+documents = collection.find({"emotion": {"$exists": False}})
 
-# Para cada documento, asignar un género y un valor de popularidad aleatorio
+# Asignar género aleatorio a los documentos seleccionados
 for doc in documents:
-    popularity = random.randint(180, 300)
-    
+    random_emotion= random.choice(emotions)
+
     collection.update_one(
         {"_id": doc["_id"]},
-        {"$set": {
-            "duration": popularity
-        }}
+        {"$set": {"emotion": random_emotion}}
     )
 
-print("✅ Género y popularidad asignados aleatoriamente a cada canción.")
+print("✅ Géneros aleatorios asignados a canciones sin emotion.")
+
